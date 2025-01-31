@@ -1,6 +1,6 @@
 # Vermont Disaster Response
 
-> [!INFO]
+> [!IMPORTANT]
 > Please note, this repository contains semi-functional prototypes, resources/inspiration, demo data, and mockups. It is not currently being developed as a full Disaster Response tool.
 
 ## Goals
@@ -14,3 +14,6 @@
 - [Sahana Foundation](https://sahanafoundation.org/): Sahana makes high quality information management systems for emergency preparedness, response, recovery and resilience-building accessible to all.
 - [FEMA.gov Common Alerting Protocol](https://www.fema.gov/emergency-managers/practitioners/integrated-public-alert-warning-system/technology-developers/common-alerting-protocol): The Common Alerting Protocol (CAP), a digital format for exchanging emergency alerts, allows a consistent alert message to be disseminated simultaneously over multiple communications pathways.
 - [Github DisasterTechCrew/awesome-disastertech](https://github.com/DisasterTechCrew/awesome-disastertech)
+- [Vermont211 Resident Flooding Report Form](https://vermont211.org/resident-form)
+- [Github | Resgrid](https://github.com/Resgrid): Open-source dispatch, messaging, and personell management 
+- [FEMA Public Assistance Forms](https://www.vlct.org/fema-public-assistance-program-pa)
