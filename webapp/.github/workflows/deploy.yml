@@ -1,0 +1,25 @@
+name: Flake Check
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - './webapp/**/*.*'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - './webapp/**/*.*'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install
+      - run: bun run build
