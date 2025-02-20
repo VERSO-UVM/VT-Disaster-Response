@@ -2,7 +2,7 @@
 	import { superForm, defaults } from 'sveltekit-superforms';
     import { zod } from 'sveltekit-superforms/adapters';
 	import { Field, ElementField, Control, Label, Description, FieldErrors, Fieldset, Legend } from 'formsnap';
-	import { schema, homeTypes, relationSingleUnit, relationMultiUnit } from './schema.js';
+	import { schema, homeTypes, relationSingleUnit, relationMultiUnit, habitability } from './schema.js';
 	import SuperDebug from 'sveltekit-superforms';
 
 	const form = superForm(defaults(zod(schema)));
@@ -17,8 +17,6 @@
         }
     }
 </script>
-
-<h2>Residential section</h2>
 
 <form use:enhance class="mx-auto flex max-w-md flex-col" method="POST">
     <Fieldset {form} name="homeType">
@@ -46,6 +44,20 @@
       {/each}
       <FieldErrors />
 	</Fieldset>
+
+    <Fieldset {form} name="habitability">
+      <Description>On a scale from 1-5, describe the habitability of your home</Description>
+      {#each habitability as type}
+        <Control>
+          {#snippet children({ props })}
+            <input {...props} type="radio" value={type.id} bind:group={$formData.habitability} />
+            <Label>{type.desc}</Label>
+          {/snippet}
+        </Control>
+      {/each}
+      <FieldErrors />
+	</Fieldset>
+
 	<button>Submit</button>
 </form>
 <SuperDebug data={$formData} />
