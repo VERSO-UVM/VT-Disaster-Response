@@ -28,7 +28,7 @@
 		<Control>
 			{#snippet children({ props })}
 				<Label>Bio</Label>
-				<textarea {...props} bind:value={$formData.bio} />
+				<textarea {...props} bind:value={$formData.bio}></textarea>
 			{/snippet}
 		</Control>
 		<Description>Tell us a bit about yourself.</Description>
