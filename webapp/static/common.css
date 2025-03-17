@@ -16,6 +16,17 @@ h1, h2, h3 {
     font-weight: normal;
 }
 
+input {
+    padding: 8px;
+}
+
+select {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
 button {
     display: block;
     padding: 10px;
