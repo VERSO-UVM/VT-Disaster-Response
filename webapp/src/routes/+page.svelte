@@ -8,11 +8,11 @@
 </script>
 
 <main>
+	<h1>What type of disaster are you reporting?</h1>
+
 	<button onclick={() => (selected = 'Residential')}>Residential</button>
 	<button onclick={() => (selected = 'Commercial')}>Commercial</button>
 	<button onclick={() => (selected = 'Infrastructure')}>Infrastructure</button>
-
-	<h1>What type of disaster are you reporting?</h1>
 
 	{#if selected === 'Residential'}
 		<Residential />
