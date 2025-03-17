@@ -1,0 +1,51 @@
+body {
+    --bg-inner: hsl(0 0% 97%);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main, button {
+    font-family: "Georgia", serif;
+}
+
+h1, h2, h3 {
+    font-weight: normal;
+}
+
+button {
+    display: block;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 10em;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+}
+
+[data-fs-description] {
+    font-weight: bold;
+}
+
+[data-fs-control] {
+    padding: 10px;
+    border-radius: 8px;
+}
+
+[data-fs-fieldset] {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: var(--bg-inner);
+    border: none;
+    text-align: left;
+}
+
+.control-input {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
