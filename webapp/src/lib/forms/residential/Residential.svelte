@@ -18,7 +18,7 @@
 		habitability
 	} from './schema.js';
 	import SuperDebug from 'sveltekit-superforms';
-    import ControlDiv from '$lib/ControlDiv.svelte'
+    import ControlDiv from '$lib/elements/ControlDiv.svelte'
 
 	const form = superForm(defaults(zod(schema)));
 	const { form: formData, enhance } = form;
@@ -78,7 +78,5 @@
 		{/each}
 		<FieldErrors />
 	</Fieldset>
-
-	<button>Submit</button>
 </form>
-<SuperDebug data={$formData} />
+<!-- <SuperDebug data={$formData} /> -->

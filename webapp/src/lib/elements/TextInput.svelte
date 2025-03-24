@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ComponentProps } from "svelte";
-    import ControlDiv from '$lib/ControlDiv.svelte';
+    import ControlDiv from './ControlDiv.svelte';
     import { Label } from 'formsnap';
  
 	let {

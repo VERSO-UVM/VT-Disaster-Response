@@ -2,7 +2,7 @@
 	import { superForm, defaults } from 'sveltekit-superforms';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { Field, ElementField, Label, Description, FieldErrors, Fieldset, Legend } from 'formsnap';
-	import ControlDiv from '$lib/ControlDiv.svelte';
+	import ControlDiv from '$lib/elements/ControlDiv.svelte';
 	import { connections, incidents, schema } from './schema';
 	const _form = superForm(defaults(zod(schema)));
 	const { form, enhance } = _form;

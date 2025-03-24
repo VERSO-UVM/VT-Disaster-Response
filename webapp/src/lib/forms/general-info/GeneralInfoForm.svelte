@@ -1,11 +1,8 @@
 <script lang="ts">
     import { superForm, defaults } from 'sveltekit-superforms';
     import { zod } from 'sveltekit-superforms/adapters';
-	import {
-		Field,
-	} from 'formsnap';
-    import ControlDiv from '$lib/ControlDiv.svelte';
-    import TextInput from '$lib/TextInput.svelte';
+	import { Field } from 'formsnap';
+    import { ControlDiv, TextInput } from '$lib/elements';
     import { schema } from "./schema";
     const form = superForm(defaults(zod(schema)));
     const { form: formData, enhance } = form;
