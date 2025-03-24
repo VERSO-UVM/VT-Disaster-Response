@@ -1,5 +1,9 @@
 body {
+    --bg: hsl(0 0% 99%);
     --bg-inner: hsl(0 0% 97%);
+    --fg: hsl(0 0% 0);
+    background-color: var(--bg);
+    color: var(--fg);
 }
 
 main {
@@ -16,8 +20,20 @@ h1, h2, h3 {
     font-weight: normal;
 }
 
-input {
-    padding: 8px;
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 500px;
+    max-width: 95%;
+}
+
+input:where([type="text"], [type="email"]) {
+    padding: 14px;
+    margin: 8px;
+    border: solid 1px var(--fg);
+    width: 300px;
 }
 
 select {
@@ -29,9 +45,9 @@ select {
 
 button {
     display: block;
-    padding: 10px;
+    padding: 14px;
     margin-bottom: 15px;
-    width: 10em;
+    width: 300px;
     font-size: 18px;
     border: none;
     border-radius: 8px;
@@ -48,11 +64,12 @@ button {
 
 fieldset {
     padding: 10px;
-    margin: 10px;
+    margin: 8px;
     border-radius: 10px;
     background-color: var(--bg-inner);
     border: none;
     text-align: left;
+    width: 100%;
 }
 
 .control-input {
