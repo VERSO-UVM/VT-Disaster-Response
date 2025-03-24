@@ -29,4 +29,3 @@
 		<GeneralInfoForm />
 	{/if}
 </main>
-
