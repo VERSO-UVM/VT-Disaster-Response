@@ -2,8 +2,20 @@ body {
 	--bg: hsl(0 0% 99%);
 	--bg-inner: hsl(0 0% 97%);
 	--fg: hsl(0 0% 0);
+    --bg-button: hsl(0 0% 93%);
+    --bg-active: hsl(0 0% 87%);
 	background-color: var(--bg);
 	color: var(--fg);
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        --bg: hsl(0 0% 11%);
+        --fg: hsl(0 0% 90%);
+        --bg-inner: hsl(0 0% 10%);
+        --bg-button: hsl(0 0% 6%);
+        --bg-active: hsl(0 0% 20%);
+    }
 }
 
 main {
@@ -33,18 +45,20 @@ form {
 	max-width: 95%;
 }
 
-input:where([type="text"], [type="email"]) {
+input:where([type="text"], [type="email"]), select {
 	padding: 14px;
 	margin: 8px;
 	border: solid 1px var(--fg);
 	width: 300px;
+    background-color: var(--bg);
+    color: var(--fg)
 }
 
 select {
-	padding: 10px;
+	padding: 14px;
 	margin: 5px;
-	border: none;
 	border-radius: 5px;
+	border: solid 1px var(--fg);
 }
 
 button {
@@ -54,6 +68,9 @@ button {
 	font-size: 18px;
 	border: none;
 	border-radius: 8px;
+    color: var(--fg);
+    background-color: var(--bg-button);
+    &:hover { background-color: var(--bg-active); }
 }
 
 [data-fs-description] {
