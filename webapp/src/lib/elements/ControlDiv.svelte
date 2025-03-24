@@ -6,16 +6,15 @@
 	// based off with our own customization.
 	// See https://www.formsnap.dev/docs/components/control
 
-	import { Control } from "formsnap";
-	import type { ComponentProps } from "svelte";
- 
+	import { Control } from 'formsnap';
+	import type { ComponentProps } from 'svelte';
+
 	let {
 		// Rename the children prop to childrenProp to avoid
 		// conflicts with the Control component
 		children: childrenProp,
 		...restProps
-	}: ComponentProps<typeof Control> & {
-	} = $props();
+	}: ComponentProps<typeof Control> & {} = $props();
 </script>
 
 <Control {...restProps}>
