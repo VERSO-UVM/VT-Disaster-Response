@@ -1,7 +1,7 @@
 <script>
 	const { children } = $props();
 
-	import '../common.css';
+	import "../common.css";
 </script>
 
 {@render children()}

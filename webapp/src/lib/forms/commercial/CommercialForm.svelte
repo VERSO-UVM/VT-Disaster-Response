@@ -1,15 +1,12 @@
 <script lang="ts">
-	import { superForm, defaults } from 'sveltekit-superforms';
-	import { zod } from 'sveltekit-superforms/adapters';
-	import { connections, schema, types } from './schema';
-	import { Label, Description, FieldErrors, Fieldset } from 'formsnap';
-	import ControlDiv from '$lib/elements/ControlDiv.svelte';
+	import { connections, types } from "./schema";
+	import { Label, Description, FieldErrors, Fieldset } from "formsnap";
+	import ControlDiv from "$lib/elements/ControlDiv.svelte";
 
-	const form = superForm(defaults(zod(schema)));
-	const { form: formData, enhance } = form;
+	let { form, formData } = $props();
 </script>
 
-<form method="POST" use:enhance>
+<div>
 	<Fieldset {form} name="type">
 		<Description>What type of building?</Description>
 		{#each types as type}
@@ -28,11 +25,11 @@
 		{#each connections as connection}
 			<ControlDiv>
 				{#snippet children({ props })}
-					<input {...props} type="radio" value={connection} bind:group={$formData.type} />
+					<input {...props} type="radio" value={connection} bind:group={$formData.connection} />
 					<Label>{connection}</Label>
 				{/snippet}
 			</ControlDiv>
 		{/each}
 		<FieldErrors />
 	</Fieldset>
-</form>
+</div>

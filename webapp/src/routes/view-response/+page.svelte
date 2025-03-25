@@ -4,20 +4,20 @@
 
 <main>
 	<h1>Form Response</h1>
-	<code lang="json">{data.responseJsonString}</code>
+	<code lang="json"><pre>{data.responseJsonString}</pre></code>
 </main>
 
 <style>
 	main {
-		width: 100vw;
-		height: 100vh;
+		width: 100%;
+		height: 100%;
 		display: flex;
 		justify-content: start;
 		align-items: center;
 		flex-direction: column;
 	}
 	code {
-		width: 40vw;
+		width: 40%;
 		background: var(--bg-inner);
 		padding: 1rem;
 		border-radius: 0.5rem;

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const schema = z
 	.object({
@@ -12,4 +12,4 @@ export const schema = z
 		zip: z.string()
 	})
 	.partial()
-	.refine((data) => data.email || data.phone, 'Either email or phone must be provided.');
+	.refine((data) => data.email || data.phone, "Either email or phone must be provided.");
