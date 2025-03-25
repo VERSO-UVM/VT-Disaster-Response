@@ -14,7 +14,7 @@ main {
 
 main,
 button {
-	font-family: 'Georgia', serif;
+	font-family: "Georgia", serif;
 }
 
 h1,
@@ -32,7 +32,7 @@ form {
 	max-width: 95%;
 }
 
-input:where([type='text'], [type='email']) {
+input:where([type="text"], [type="email"]) {
 	padding: 14px;
 	margin: 8px;
 	border: solid 1px var(--fg);

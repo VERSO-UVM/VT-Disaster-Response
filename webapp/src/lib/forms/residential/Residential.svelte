@@ -1,23 +1,13 @@
 <script lang="ts">
-	import { superForm, defaults } from 'sveltekit-superforms';
-	import { zod } from 'sveltekit-superforms/adapters';
-	import { Field, ElementField, Label, Description, FieldErrors, Fieldset, Legend } from 'formsnap';
-	import {
-		schema,
-		homeTypes,
-		relationSingleUnit,
-		relationMultiUnit,
-		habitability
-	} from './schema.js';
-	import SuperDebug from 'sveltekit-superforms';
-	import ControlDiv from '$lib/elements/ControlDiv.svelte';
+	import { Label, Description, FieldErrors, Fieldset } from "formsnap";
+	import { homeTypes, relationSingleUnit, relationMultiUnit, habitability } from "./schema.js";
+	import ControlDiv from "$lib/elements/ControlDiv.svelte";
 
-	const form = superForm(defaults(zod(schema)));
-	const { form: formData, enhance } = form;
+	let { form, formData } = $props();
 
-	let relation = relationSingleUnit;
+	let relation = $state(relationSingleUnit);
 	function updateRelationOptions() {
-		if ($formData.homeType == 'single-family') {
+		if ($formData.homeType == "single-family") {
 			relation = relationSingleUnit;
 		} else {
 			relation = relationMultiUnit;
@@ -25,7 +15,7 @@
 	}
 </script>
 
-<form use:enhance method="POST">
+<div>
 	<Fieldset {form} name="homeType">
 		<Description>What type of residential building?</Description>
 		{#each homeTypes as type}
@@ -70,5 +60,4 @@
 		{/each}
 		<FieldErrors />
 	</Fieldset>
-</form>
-<!-- <SuperDebug data={$formData} /> -->
+</div>

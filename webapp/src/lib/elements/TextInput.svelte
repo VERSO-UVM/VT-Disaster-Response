@@ -1,9 +1,20 @@
 <script lang="ts">
-	import type { ComponentProps } from 'svelte';
-	import ControlDiv from './ControlDiv.svelte';
-	import { Label } from 'formsnap';
+	import type { ComponentProps } from "svelte";
+	import ControlDiv from "./ControlDiv.svelte";
+	import { Control, Label } from "formsnap";
 
-	let { label, type = 'text', ...restProps }: ComponentProps<typeof Control> & {} = $props();
+	type Props = {
+		label?: string;
+		type?: string;
+		/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+		value?: any;
+	};
+
+	let {
+		label,
+		type = "text",
+		value = $bindable()
+	}: ComponentProps<typeof Control> & Props = $props();
 </script>
 
 <ControlDiv>
@@ -12,7 +23,7 @@
 			<div>
 				<Label>{label}</Label>
 			</div>
-			<input {type} {...restProps} {...props} />
+			<input {type} bind:value {...props} />
 		</div>
 	{/snippet}
 </ControlDiv>

@@ -1,21 +1,19 @@
 <script lang="ts">
-	import { superForm, defaults } from 'sveltekit-superforms';
-	import { zod } from 'sveltekit-superforms/adapters';
-	import { Field, ElementField, Label, Description, FieldErrors, Fieldset, Legend } from 'formsnap';
-	import ControlDiv from '$lib/elements/ControlDiv.svelte';
-	import { connections, incidents, schema } from './schema';
-	const _form = superForm(defaults(zod(schema)));
-	const { form, enhance } = _form;
+	import { Description, Fieldset } from "formsnap";
+	import ControlDiv from "$lib/elements/ControlDiv.svelte";
+	import { connections, incidents } from "./schema";
+
+	let { form, formData } = $props();
 </script>
 
-<form method="POST" use:enhance>
-	<Fieldset form={_form} name="incident">
+<div>
+	<Fieldset {form} name="incident">
 		<Description>What are you reporting?</Description>
 		<ControlDiv>
 			{#snippet children({ props })}
-				<select bind:value={$form.incident} {...props}>
+				<select bind:value={$formData.incident} {...props}>
 					{#each incidents as incident}
-						<option value={incident} selected={$form.incident == incident}>
+						<option value={incident} selected={$formData.incident == incident}>
 							{incident}
 						</option>
 					{/each}
@@ -24,17 +22,22 @@
 		</ControlDiv>
 	</Fieldset>
 
-	<Fieldset form={_form} name="connections">
+	<Fieldset {form} name="connections">
 		<Description>Select all that apply</Description>
 		{#each connections as connection}
 			<ControlDiv>
 				{#snippet children({ props })}
 					<label>
-						<input type="checkbox" bind:group={$form.connection} value={connection} {...props} />
+						<input
+							type="checkbox"
+							bind:group={$formData.connection}
+							value={connection}
+							{...props}
+						/>
 						{connection}
 					</label>
 				{/snippet}
 			</ControlDiv>
 		{/each}
 	</Fieldset>
-</form>
+</div>
