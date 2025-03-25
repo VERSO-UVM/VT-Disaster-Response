@@ -73,9 +73,10 @@
 		{/if}
 		{#if selected != ""}
 			<GeneralInfoForm {form} {formData} />
+			<div>
+				<button type="submit">Submit</button>
+			</div>
 		{/if}
-
-		<button type="submit">Submit</button>
 	</form>
 
 	{#if dev}
