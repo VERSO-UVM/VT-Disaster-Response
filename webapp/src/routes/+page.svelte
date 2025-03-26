@@ -15,8 +15,9 @@
 	import { dev } from "$app/environment";
 	import { goto } from "$app/navigation";
 
-	type options = "Residential" | "Commercial" | "Infrastructure" | "";
-	let selected: options = $state("");
+	const options = [ "Residential", "Commercial", "Infrastructure" ] as const;
+
+	let selected: typeof options[number] | "" = $state("");
 
 	let schema = $derived.by(() => {
 		let output = GeneralInfoSchema;
@@ -53,33 +54,47 @@
 </script>
 
 <main>
-	<h1>What type of disaster are you reporting?</h1>
+	{#if selected == ""}
+		<div id="selection-screen">
+			<h1>What type of disaster are you reporting?</h1>
+			{#each options as option}
+				<button onclick={() => selected = option}>{option}</button>
+			{/each}
+	 	</div>
+	{:else}
+		<form method="POST" use:enhance>
+			<h1>Basic info</h1>
+			<div>
+				You selected:
+				<select bind:value={selected}>
+					{#each options as option}
+						<option value={option} selected={selected == option}>
+							{option}
+						</option>
+					{/each}
+				</select>
+			</div>
 
-	<button onclick={() => (selected = "Residential")}>Residential</button>
-	<button onclick={() => (selected = "Commercial")}>Commercial</button>
-	<button onclick={() => (selected = "Infrastructure")}>Infrastructure</button>
+			{#if selected === "Residential"}
+				<Residential {form} {formData} />
+			{/if}
 
-	<form method="POST" use:enhance>
-		{#if selected === "Residential"}
-			<Residential {form} {formData} />
-		{/if}
+			{#if selected === "Commercial"}
+				<CommercialForm {form} {formData} />
+			{/if}
 
-		{#if selected === "Commercial"}
-			<CommercialForm {form} {formData} />
-		{/if}
+			{#if selected === "Infrastructure"}
+				<InfrastructureForm {form} {formData} />
+			{/if}
 
-		{#if selected === "Infrastructure"}
-			<InfrastructureForm {form} {formData} />
-		{/if}
-		{#if selected != ""}
 			<GeneralInfoForm {form} {formData} />
 			<div>
 				<button type="submit">Submit</button>
 			</div>
-		{/if}
-	</form>
+		</form>
 
-	{#if dev}
-		<SuperDebug data={formData} />
+		{#if dev}
+			<SuperDebug data={formData} />
+		{/if}
 	{/if}
 </main>
