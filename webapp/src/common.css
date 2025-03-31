@@ -2,8 +2,24 @@ body {
 	--bg: hsl(0 0% 99%);
 	--bg-inner: hsl(0 0% 97%);
 	--fg: hsl(0 0% 0);
+	--fg-button: white;
+	/* --bg-button: hsl(0 0% 93%); */
+	/* --bg-active: hsl(0 0% 87%); */
+	--bg-button: var(--control-color);
+	--bg-active: #1B6048;
+	--control-color: #154734; /* catamount green */
 	background-color: var(--bg);
 	color: var(--fg);
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        --bg: hsl(0 0% 11%);
+        --fg: hsl(0 0% 90%);
+        --bg-inner: hsl(0 0% 10%);
+        /* --bg-button: hsl(0 0% 6%); */
+        /* --bg-active: hsl(0 0% 20%); */
+    }
 }
 
 main {
@@ -33,18 +49,20 @@ form {
 	max-width: 95%;
 }
 
-input:where([type="text"], [type="email"]) {
+input:where([type="text"], [type="email"]), select {
 	padding: 14px;
 	margin: 8px;
 	border: solid 1px var(--fg);
 	width: 300px;
+    background-color: var(--bg);
+    color: var(--fg)
 }
 
 select {
-	padding: 10px;
+	padding: 14px;
 	margin: 5px;
-	border: none;
 	border-radius: 5px;
+	border: solid 1px var(--fg);
 }
 
 button {
@@ -54,6 +72,53 @@ button {
 	font-size: 18px;
 	border: none;
 	border-radius: 8px;
+	color: var(--fg-button);
+	background-color: var(--bg-button);
+	cursor: pointer;
+	&:hover {
+		background-color: var(--bg-active);
+	}
+}
+
+input[type="radio"] {
+	appearance: none;
+	background-color: var(--bg);
+	border: 1px solid var(--fg);
+	padding: 0;
+	border-radius: 50%;
+	transform: translateY(4px);
+	width: 20px;
+	height: 20px;
+	&:checked {
+		border: 6px solid var(--control-color);
+		background-color: white;
+	}
+}
+
+input[type="checkbox"] {
+	appearance: none;
+	background-color: var(--bg);
+	border: 1px solid var(--fg);
+	padding: 0;
+	transform: translateY(2px);
+	width: 20px;
+	height: 20px;
+	border-radius: 15%;
+
+	&:checked {
+		background-color: var(--control-color);
+		border: 1px solid transparent;
+
+		&::after { visibility: visible; }
+	}
+
+	&::after {
+		content: url("./checkmark.svg");
+		margin-top: 2px;
+		margin-left: 3px;
+		display: block;
+		visibility: hidden;
+	}
 }
 
 [data-fs-description] {
@@ -67,7 +132,7 @@ button {
 
 fieldset {
 	padding: 10px;
-	margin: 8px;
+	margin: 18px;
 	border-radius: 10px;
 	background-color: var(--bg-inner);
 	border: none;
@@ -77,4 +142,17 @@ fieldset {
 .control-input {
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+#selection-screen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 100px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 }
