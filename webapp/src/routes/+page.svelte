@@ -13,6 +13,7 @@
 	import { schema as ResidentialSchema } from "$lib/forms/residential/schema";
 
 	import { dev } from "$app/environment";
+	import { base } from "$app/paths";
 	import { goto } from "$app/navigation";
 
 	type options = "Residential" | "Commercial" | "Infrastructure" | "";
@@ -41,7 +42,7 @@
 				let data: Record<string, string> = {};
 				formData.forEach((value, key) => (data[key] = value as string));
 				const json = JSON.stringify(data);
-				goto("/view-response?response-data=" + encodeURIComponent(json));
+				goto(`${base}/view-response?response-data=` + encodeURIComponent(json));
 			}
 		}
 	);

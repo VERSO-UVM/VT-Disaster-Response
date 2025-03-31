@@ -1,0 +1,36 @@
+name: Deploy VTDR Webapp
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "./webapp/**/*.*"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "./webapp/**/*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install Dependencies 📦
+        run: bun install
+        working-directory: ./webapp
+      - name: Build 🏗  ️
+        run: bun run build
+        working-directory: ./webapp
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./webapp/build # The folder the action should deploy.
