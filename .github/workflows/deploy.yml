@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      - "./webapp/**/*.*"
+      - "./webapp/**/*"
   pull_request:
     branches:
       - main
     paths:
-      - "./webapp/**/*.*"
+      - "./webapp/**/*"
   workflow_dispatch:
 
 permissions:
