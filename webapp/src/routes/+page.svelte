@@ -16,9 +16,9 @@
 	import { base } from "$app/paths";
 	import { goto } from "$app/navigation";
 
-	const options = [ "Residential", "Commercial", "Infrastructure" ] as const;
+	const options = ["Residential", "Commercial", "Infrastructure"] as const;
 
-	let selected: typeof options[number] | "" = $state("");
+	let selected: (typeof options)[number] | "" = $state("");
 
 	let schema = $derived.by(() => {
 		let output = GeneralInfoSchema;
@@ -59,12 +59,12 @@
 		<div id="selection-screen">
 			<h1>What type of disaster are you reporting?</h1>
 			{#each options as option}
-				<button onclick={() => selected = option}>{option}</button>
+				<button onclick={() => (selected = option)}>{option}</button>
 			{/each}
-	 	</div>
+		</div>
 	{:else}
 		<form method="POST" use:enhance>
-			<h1>Basic info</h1>
+			<h1>Disaster Assistance Form</h1>
 			<div>
 				You selected:
 				<select bind:value={selected}>
