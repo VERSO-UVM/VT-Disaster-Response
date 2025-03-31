@@ -21,7 +21,7 @@
 	</Fieldset>
 
 	<Fieldset {form} name="connection">
-		<Description>What type of building?</Description>
+		<Description>Select the option that best describes your connection to the building</Description>
 		{#each connections as connection}
 			<ControlDiv>
 				{#snippet children({ props })}
