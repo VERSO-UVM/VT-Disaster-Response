@@ -5,7 +5,7 @@
 
 	let { form, formData } = $props();
 
-	let relation = $state(relationSingleUnit);
+	let relation = $state<typeof relationSingleUnit | typeof relationMultiUnit>(relationSingleUnit);
 	function updateRelationOptions() {
 		if ($formData.homeType == "single-family") {
 			relation = relationSingleUnit;
