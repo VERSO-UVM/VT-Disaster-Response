@@ -1,34 +1,40 @@
 <script lang="ts">
-    import { superForm, defaults } from 'sveltekit-superforms';
-    import { zod } from 'sveltekit-superforms/adapters';
-    import { schema } from "./schema";
-    const { form, enhance } = superForm(defaults(zod(schema)));
+	import { Field } from "formsnap";
+	import { TextInput } from "$lib/elements";
+
+	let { form, formData } = $props();
 </script>
 
-<form method="POST" use:enhance>
-    <label for="name">Name </label>
-    <input type="text" name="name" bind:value={$form.name}>
+<fieldset>
+	<Field {form} name="name">
+		<TextInput label="Name" bind:value={$formData.name} />
+	</Field>
 
-    <label for="email">Email </label>
-    <input type="email" name="email" bind:value={$form.email}>
+	<Field {form} name="email">
+		<TextInput label="Email" type="email" bind:value={$formData.email} />
+	</Field>
 
-    <label for="phone">Phone </label>
-    <input type="text" name="phone" bind:value={$form.phone}>
+	<Field {form} name="phone">
+		<TextInput label="Phone" bind:value={$formData.phone} />
+	</Field>
 
-    <label for="street1">Street 1 </label>
-    <input type="text" name="street1" bind:value={$form.street1}>
+	<Field {form} name="street1">
+		<TextInput label="Street 1" bind:value={$formData.stret1} />
+	</Field>
 
-    <label for="street2">Street 2 </label>
-    <input type="text" name="street2" bind:value={$form.street2}>
+	<Field {form} name="street2">
+		<TextInput label="Street 2" bind:value={$formData.stret2} />
+	</Field>
 
-    <label for="city">City </label>
-    <input type="text" name="city" bind:value={$form.city}>
+	<Field {form} name="city">
+		<TextInput label="City" bind:value={$formData.city} />
+	</Field>
 
-    <label for="state">State </label>
-    <input type="text" name="state" bind:value={$form.state}>
+	<Field {form} name="state">
+		<TextInput label="State" bind:value={$formData.state} />
+	</Field>
 
-    <label for="zip">ZIP </label>
-    <input type="text" name="zip" bind:value={$form.zip}>
-
-    <button type="submit">Submit</button>
-</form>
+	<Field {form} name="zip">
+		<TextInput label="ZIP" bind:value={$formData.zip} />
+	</Field>
+</fieldset>

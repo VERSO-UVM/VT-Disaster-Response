@@ -1,89 +1,85 @@
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms';
-	import { Field, Control, Label, Description, FieldErrors, Fieldset, Legend } from 'formsnap';
-	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { allergies, schema, themes } from './schema.js';
-	import SuperDebug from 'sveltekit-superforms';
+	import SuperDebug, { superForm, defaults } from "sveltekit-superforms";
+	import { zod } from "sveltekit-superforms/adapters";
 
-	let { data } = $props();
+	import CommercialForm from "$lib/forms/commercial/CommercialForm.svelte";
+	import GeneralInfoForm from "$lib/forms/general-info/GeneralInfoForm.svelte";
+	import InfrastructureForm from "$lib/forms/infrastructure/InfrastructureForm.svelte";
+	import Residential from "$lib/forms/residential/Residential.svelte";
 
-	const form = superForm(data.form, {
-		validators: zodClient(schema)
+	import { schema as CommercialSchema } from "$lib/forms/commercial/schema";
+	import { schema as GeneralInfoSchema } from "$lib/forms/general-info/schema";
+	import { schema as InfrastructureSchema } from "$lib/forms/infrastructure/schema";
+	import { schema as ResidentialSchema } from "$lib/forms/residential/schema";
+
+	import { dev } from "$app/environment";
+	import { goto } from "$app/navigation";
+
+	type options = "Residential" | "Commercial" | "Infrastructure" | "";
+	let selected: options = $state("");
+
+	let schema = $derived.by(() => {
+		let output = GeneralInfoSchema;
+
+		switch (selected) {
+			case "Residential":
+				return output.and(ResidentialSchema);
+			case "Commercial":
+				return output.and(CommercialSchema);
+			case "Infrastructure":
+				return output.and(InfrastructureSchema);
+			default:
+				return output;
+		}
 	});
+
+	const form = superForm(
+		{},
+		{
+			SPA: true,
+			onSubmit: ({ formData }) => {
+				let data: Record<string, string> = {};
+				formData.forEach((value, key) => (data[key] = value as string));
+				const json = JSON.stringify(data);
+				goto("/view-response?response-data=" + encodeURIComponent(json));
+			}
+		}
+	);
 	const { form: formData, enhance } = form;
+
+	$effect(() => {
+		form.form.set(defaults(zod(schema)).data);
+	});
 </script>
 
-<form use:enhance class="mx-auto flex max-w-md flex-col" method="POST">
-	<Field {form} name="email">
-		<Control>
-			{#snippet children({ props })}
-				<Label>Email</Label>
-				<input {...props} type="email" bind:value={$formData.email} />
-			{/snippet}
-		</Control>
-		<Description>Company email is preferred</Description>
-		<FieldErrors />
-	</Field>
-	<Field {form} name="bio">
-		<Control>
-			{#snippet children({ props })}
-				<Label>Bio</Label>
-				<textarea {...props} bind:value={$formData.bio} />
-			{/snippet}
-		</Control>
-		<Description>Tell us a bit about yourself.</Description>
-		<FieldErrors />
-	</Field>
-	<Field {form} name="language">
-		<Control>
-			{#snippet children({ props })}
-				<Label>Language</Label>
-				<select {...props} bind:value={$formData.language}>
-					<option value="fr">French</option>
-					<option value="es">Spanish</option>
-					<option value="en">English</option>
-				</select>
-			{/snippet}
-		</Control>
-		<Description>Help us address you properly.</Description>
-		<FieldErrors />
-	</Field>
-	<Fieldset {form} name="theme">
-		<Legend>Select your theme</Legend>
-		{#each themes as theme}
-			<Control>
-				{#snippet children({ props })}
-					<Label>{theme}</Label>
-					<input {...props} type="radio" value={theme} bind:group={$formData.theme} />
-				{/snippet}
-			</Control>
-		{/each}
-		<Description>We prefer dark mode, but the choice is yours.</Description>
-		<FieldErrors />
-	</Fieldset>
-	<Field {form} name="marketingEmails">
-		<Control>
-			{#snippet children({ props })}
-				<input {...props} type="checkbox" bind:checked={$formData.marketingEmails} />
-				<Label>I want to receive marketing emails</Label>
-			{/snippet}
-		</Control>
-		<Description>Stay up to date with our latest news and offers.</Description>
-		<FieldErrors />
-	</Field>
-	<Fieldset {form} name="allergies">
-		<Legend>Food allergies</Legend>
-		{#each allergies as allergy}
-			<Control>
-				{#snippet children({ props })}
-					<input {...props} type="checkbox" bind:group={$formData.allergies} value={allergy} />
-					<Label>{allergy}</Label>
-				{/snippet}
-			</Control>
-		{/each}
-		<Description>When we provide lunch, we'll accommodate your needs.</Description>
-		<FieldErrors />
-	</Fieldset>
-	<button>Submit</button>
-</form>
-<SuperDebug data={$formData} />
+<main>
+	<h1>What type of disaster are you reporting?</h1>
+
+	<button onclick={() => (selected = "Residential")}>Residential</button>
+	<button onclick={() => (selected = "Commercial")}>Commercial</button>
+	<button onclick={() => (selected = "Infrastructure")}>Infrastructure</button>
+
+	<form method="POST" use:enhance>
+		{#if selected === "Residential"}
+			<Residential {form} {formData} />
+		{/if}
+
+		{#if selected === "Commercial"}
+			<CommercialForm {form} {formData} />
+		{/if}
+
+		{#if selected === "Infrastructure"}
+			<InfrastructureForm {form} {formData} />
+		{/if}
+		{#if selected != ""}
+			<GeneralInfoForm {form} {formData} />
+			<div>
+				<button type="submit">Submit</button>
+			</div>
+		{/if}
+	</form>
+
+	{#if dev}
+		<SuperDebug data={formData} />
+	{/if}
+</main>
